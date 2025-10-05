@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+
+  <title>Speaker — Category | CHEEZEN.PK</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* --------------------
+       THEME + RESET
+    -------------------- */
+    :root{
+      --bg: #0b0f14;
+      --surface: #10151e;
+      --card: #121925;
+      --elev: rgba(255,255,255,.06);
+      --text: #e7e9ee;
+      --muted: #9aa5b1;
+      --primary: #8b5cf6;    /* violet */
+      --accent:  #06b6d4;    /* cyan   */
+      --danger:  #ff3d71;    /* sale   */
+      --radius: 16px;
+      --radius-sm: 12px;
+      --shadow-1: 0 10px 25px rgba(0,0,0,.35);
+      --shadow-2: 0 18px 60px rgba(0,0,0,.55);
+      --maxw: 1200px;
+      --t: 240ms cubic-bezier(.2,.7,.3,1);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0; color:var(--text);
+      background:
+        radial-gradient(1100px 540px at 5% -10%, rgba(139,92,246,.15), transparent 55%),
+        radial-gradient(900px 500px at 95% 0%, rgba(6,182,212,.12), transparent 45%),
+        var(--bg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+      line-height:1.6;
+    }
+    img{ max-width:100%; display:block; height:auto; }
+    a{ color:inherit; text-decoration:none; }
+    h1,h2,h3{ font-family:Poppins, Inter, sans-serif; line-height:1.2; margin:0 0 .6rem; }
+    .container{ width:min(var(--maxw), 100% - 2rem); margin-inline:auto; }
+    .section{ padding: clamp(40px, 7vw, 80px) 0; }
+
+    /* --------------------
+       HEADER
+    -------------------- */
+    .site-header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom:1px solid var(--elev);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:.9rem 0;
+    }
+    .logo{
+      /* font-weight:800; font-size:1.3rem; letter-spacing:.5px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip:text; background-clip:text; color:transparent; */
+      width: 250px;
+      height: auto;
+    }
+    .primary-nav{ display:flex; gap: clamp(.6rem, 2vw, 1.4rem); align-items:center; }
+    .primary-nav a{
+      color:var(--muted); font-weight:600; opacity:.9;
+      padding:.5rem .8rem; border-radius:10px; transition:var(--t);
+    }
+    .primary-nav a:hover, .primary-nav a.active{ color:#fff; background:rgba(255,255,255,.06); }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+      padding:.7rem 1rem; border-radius:999px; font-weight:700; border:1px solid transparent; transition:var(--t);
+    }
+    .btn-ghost{ border-color:var(--elev); background:rgba(255,255,255,.05); }
+    .btn-ghost:hover{ border-color:transparent; background:linear-gradient(135deg, rgba(139,92,246,.18), rgba(6,182,212,.18)); }
+
+    /* --------------------
+       PAGE HEAD (Breadcrumb + Title)
+    -------------------- */
+    .page-head{
+      border-bottom:1px solid var(--elev);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 60%),
+        radial-gradient(700px 220px at 80% -20%, rgba(6,182,212,.12), transparent 60%),
+        var(--surface);
+      padding: 22px 0 26px;
+    }
+    .crumbs{
+      display:flex; gap:.4rem; align-items:center; color:#cbd5e1; font-size:.95rem;
+      margin-bottom: .6rem;
+    }
+    .crumbs a{ color:#a9b5c6; }
+    .crumbs a:hover{ color:#fff; }
+    .crumbs .sep{ opacity:.45; }
+
+    .page-title{ font-size: clamp(1.4rem, 2.4vw, 2rem); }
+
+    /* --------------------
+       CATALOG LAYOUT
+    -------------------- */
+    .catalog{ padding-top: 26px; }
+    .catalog-grid{
+      display:grid; grid-template-columns: 280px 1fr; gap: 22px;
+    }
+    @media (max-width: 980px){
+      .primary-nav{ display:none; }
+      .catalog-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* --------------------
+       SIDEBAR WIDGETS
+    -------------------- */
+    .sidebar{ position:relative; }
+    .widget{
+      background: var(--surface);
+      border:1px solid var(--elev);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow-1);
+      margin-bottom: 14px;
+    }
+    .widget h4{
+      margin: 0 0 10px; font-size:1rem; letter-spacing:.02em;
+    }
+
+    /* search */
+    .searchbar{
+      display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center;
+    }
+    .searchbar input{
+      background: #0f172a;
+      border:1px solid var(--elev);
+      color:#e2e8f0; border-radius: 12px;
+      padding:.75rem .9rem; outline:none; transition:var(--t);
+    }
+    .searchbar input::placeholder{ color:#93a4b5; }
+    .searchbar input:focus{ border-color:transparent; box-shadow: 0 0 0 3px rgba(139,92,246,.25); }
+    .searchbar button{
+      border:1px solid var(--elev);
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      color:#0b0f14; font-weight:800; border-radius:12px; padding:.75rem .85rem; cursor:pointer;
+    }
+
+    /* category list */
+    .catlist{ list-style:none; padding:0; margin:0; display:grid; gap:6px; }
+    .catlist a{
+      display:flex; align-items:center; gap:.6rem; color:#cbd5e1;
+      padding:.55rem .6rem; border-radius:10px; transition:var(--t);
+    }
+    .catlist a:hover{ background: rgba(255,255,255,.05); color:#fff; }
+    .catlist .dot{
+      width:8px; height:8px; border-radius:50%; background: #334155; display:inline-block;
+    }
+    .catlist .active{ background: rgba(139,92,246,.16); color:#fff; }
+    .catlist .active .dot{ background: linear-gradient(135deg, var(--accent), var(--primary)); }
+
+    /* range filter */
+    .range-wrap{ margin: 12px 2px; }
+    .range-labels{ display:flex; justify-content:space-between; color:#93a4b5; font-size:.9rem; margin-top:8px; }
+    input[type="range"]{
+      -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:999px;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
+      outline:none;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%;
+      background:#fff; border: 3px solid #0b0f14; box-shadow: 0 5px 15px rgba(0,0,0,.4);
+    }
+    input[type="range"]::-moz-range-thumb{
+      width:18px; height:18px; border-radius:50%; background:#fff; border: 3px solid #0b0f14;
+    }
+    .filter-btn{
+      width:100%; margin-top:10px; border-radius:12px; padding:.8rem 1rem; font-weight:800; border:1px solid var(--elev);
+      background: linear-gradient(135deg, rgba(139,92,246,.18), rgba(6,182,212,.18));
+      color:#fff; transition:var(--t);
+    }
+    .filter-btn:hover{ transform: translateY(-2px); }
+
+    /* --------------------
+       TOOLBAR (results + sorting)
+    -------------------- */
+    .toolbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px; margin-bottom: 14px;
+    }
+    .results{ color:#cbd5e1; }
+    .select-wrap{ position:relative; }
+    .select{
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background: var(--surface);
+      border:1px solid var(--elev); color:#fff; padding:.7rem 2.3rem .7rem .9rem;
+      border-radius: 12px; font-weight:700; cursor:pointer; transition:var(--t);
+    }
+    .select:hover{ border-color: transparent; background: rgba(255,255,255,.06); }
+    .select-wrap::after{
+      content:"▾"; position:absolute; right:.7rem; top:50%; transform:translateY(-50%);
+      color:#cbd5e1; pointer-events:none; font-size:1rem;
+    }
+
+    /* --------------------
+       PRODUCT GRID
+    -------------------- */
+    .products-grid{
+      display:grid; gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .product-card{
+      background: var(--card); border:1px solid var(--elev); border-radius: var(--radius);
+      overflow:hidden; display:flex; flex-direction:column; box-shadow: var(--shadow-1);
+      transition: var(--t); animation: fadeUp .7s ease both; opacity:0;
+    }
+    .product-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-2); }
+    .product-media{ position:relative; background: linear-gradient(180deg, #172133, #0e1420); aspect-ratio: 1 / 1; }
+    .product-media img{ width:100%; height:100%; object-fit:cover; transition: var(--t); }
+    .product-card:hover .product-media img{ transform: scale(1.06); }
+    .badge{
+      position:absolute; top:10px; left:10px; z-index:2; font-weight:800; font-size:.78rem; padding:.35rem .6rem;
+      background: linear-gradient(135deg, #ff6b8a, #ff3d71); color:#fff; border-radius:999px;
+      box-shadow: 0 6px 18px rgba(255,61,113,.35);
+    }
+    .product-info{ padding: 14px; display:grid; gap:.35rem; }
+    .product-title{ font-size:1rem; font-weight:700; }
+    .prices{ display:flex; gap:.5rem; align-items:baseline; }
+    .old{ color: var(--muted); text-decoration: line-through; font-size:.9rem; }
+    .new{ color:#fff; font-weight:800; }
+    .add-btn{
+      margin: 10px 14px 14px; padding:.7rem; border-radius: 10px; text-align:center; font-weight:700;
+      border:1px solid var(--elev); background: rgba(255,255,255,.035); transition: var(--t);
+    }
+    .add-btn:hover{ background: linear-gradient(135deg, rgba(139,92,246,.18), rgba(6,182,212,.18)); border-color: transparent; }
+    .products-grid .product-card{ animation-delay: calc(var(--i, 1) * 80ms); }
+
+    /* --------------------
+       PAGINATION
+    -------------------- */
+    .pagination{ display:flex; gap:8px; justify-content:center; margin-top: 18px; }
+    .page-btn{
+      min-width:40px; padding:.55rem .8rem; text-align:center; border-radius:10px; border:1px solid var(--elev);
+      background: rgba(255,255,255,.05); color:#cbd5e1; transition:var(--t); font-weight:700;
+    }
+    .page-btn:hover{ color:#fff; transform: translateY(-2px); }
+    .page-btn.active{ background: linear-gradient(135deg, var(--accent), var(--primary)); color:#0b0f14; border-color: transparent; }
+
+    /* --------------------
+       BENEFITS + FOOTER (short)
+    -------------------- */
+    .benefits{
+      display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px;
+    }
+    .benefit{ display:flex; gap:.9rem; align-items:center; background: var(--surface); padding: .9rem; border-radius: var(--radius-sm); border:1px solid var(--elev); }
+    .benefit small{ color: var(--muted); display:block; margin-top:2px; }
+    footer{
+      margin-top: 60px; border-top:1px solid var(--elev);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), transparent), var(--surface);
+    }
+    .footer-grid{
+      display:grid; grid-template-columns: 2fr 1fr 1fr; gap: 18px; padding: 30px 0;
+    }
+    .subtle{ color: var(--muted); font-size:.95rem; }
+    .copy{ color:#9aa5b1; font-size:.88rem; padding: 16px 0 28px; text-align:center; }
+
+    /* --------------------
+       FLOATING ACTIONS
+    -------------------- */
+    .fab-whatsapp{
+      position: fixed; right:16px; bottom:16px; z-index:40;
+      width:56px; height:56px; border-radius:50%; display:grid; place-items:center;
+      background: linear-gradient(180deg, #25d366, #128c7e); color:#fff;
+      box-shadow: 0 18px 45px rgba(18,140,126,.45); border:2px solid rgba(255,255,255,.2); transition:var(--t);
+    }
+    .fab-whatsapp:hover{ transform: translateY(-3px) scale(1.03); }
+    .backtotop{
+      position: fixed; right:16px; bottom:86px; z-index:40; width:44px; height:44px; border-radius:50%;
+      display:grid; place-items:center; color:#fff; border:1px solid var(--elev); background: rgba(255,255,255,.05); transition: var(--t);
+    }
+    .backtotop:hover{ transform: translateY(-3px); background: rgba(255,255,255,.09); }
+
+    /* --------------------
+       ANIMATIONS + RESPONSIVE
+    -------------------- */
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(12px) scale(.98); }
+      to{   opacity:1; transform: translateY(0)     scale(1); }
+    }
+
+    @media (max-width: 900px){
+      .benefits{ grid-template-columns: repeat(2, 1fr); }
+      .footer-grid{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px){
+      .benefits{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      html{ scroll-behavior:auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav">
+      <img class="logo" src="logo.png">
+      <nav class="primary-nav">
+        <a href="index.html">Home</a>
+        <a class="active" href="#">Shop</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-ghost" href="#featured">Explore</a>
+    </div>
+  </header>
+
+  <!-- Page Head -->
+  <div class="page-head">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> <span class="sep">/</span>
+        <a href="#">Products</a> <span class="sep">/</span>
+        <span>Speaker</span>
+      </nav>
+      <h1 class="page-title">Speaker</h1>
+    </div>
+  </div>
+
+  <!-- Catalog -->
+  <section class="catalog">
+    <div class="container catalog-grid">
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Search -->
+        <div class="widget">
+          <h4>Search Here</h4>
+          <form class="searchbar" action="#">
+            <input type="search" placeholder="Search products..." aria-label="Search" />
+            <button type="submit" aria-label="Search">🔍</button>
+          </form>
+        </div>
+
+        <!-- Categories -->
+        <div class="widget">
+          <h4>Product Categories</h4>
+          <ul class="catlist">
+            <li><a href="airpod.html"><span class="dot"></span>AirPods</a></li>
+            <li><a href="all-products.html"><span class="dot"></span>All Products</a></li>
+            <li><a href="charger.html"><span class="dot"></span>Charger & Data Cables</a></li>
+            <li><a href="#"><span class="dot"></span>Earphone</a></li>
+            <li><a href="#"><span class="dot"></span>Gadgets</a></li>
+            <li><a href="#"><span class="dot"></span>Gaming</a></li>
+            <li><a href="handsfree.html"><span class="dot"></span>Handsfree</a></li>
+            <li><a href="headphone.html"><span class="dot"></span>Headphone</a></li>
+            <li><a href="#"><span class="dot"></span>Headphones</a></li>
+            <li><a href="#"><span class="dot"></span>Laptop</a></li>
+            <li><a href="watches.html"><span class="dot"></span>Smart Watches</a></li>
+            <li><a class="active" href="#"><span class="dot"></span>Speaker</a></li>
+          </ul>
+        </div>
+
+        <!-- Price Range -->
+        <div class="widget">
+          <h4>Choose Price</h4>
+          <div class="range-wrap">
+            <input type="range" min="2300" max="2700" value="2500" />
+            <div class="range-labels"><span>Rs 2,300</span><span>Rs 2,700</span></div>
+          </div>
+          <button class="filter-btn" type="button">Filter</button>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <div>
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="results">Showing 2 results</div>
+          <div class="select-wrap">
+            <select class="select" aria-label="Sort products">
+              <option selected>Default sorting</option>
+              <option>Sort by popularity</option>
+              <option>Sort by latest</option>
+              <option>Sort by price: low to high</option>
+              <option>Sort by price: high to low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products grid -->
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <article class="product-card" style="--i:1">
+            <div class="product-media">
+              <span class="badge">Sale</span>
+              <img src="https://cheezzen.pk/wp-content/uploads/2024/10/LOGOsssssss-300x300.jpg" alt="Airpods Pro 2 Type‑C Black">
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Airpods Pro 2 Type‑C (Black)</h3>
+              <div class="prices"><span class="old">Rs 4,500.00</span><span class="new">Rs 3,000.00</span></div>
+            </div>
+            <a class="add-btn" href="#">Add to cart</a>
+          </article>
+
+            <!-- Product 2 -->
+          <article class="product-card" style="--i:1">
+            <div class="product-media">
+              <span class="badge">Sale</span>
+              <img src="https://cheezzen.pk/wp-content/uploads/2024/10/LOGOsssssss-300x300.jpg" alt="Airpods Pro 2 Type‑C Black">
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">RGB Portable Speaker L008 Long Battery Life</h3>
+              <div class="prices"><span class="old">Rs 4,500.00</span><span class="new">Rs 3,000.00</span></div>
+            </div>
+            <a class="add-btn" href="#">Add to cart</a>
+          </article>
+
+
+        </div>
+
+        <!-- Pagination -->
+        <nav class="pagination" aria-label="Pagination">
+          <a class="page-btn active" href="#">1</a>
+          <a class="page-btn" href="#">2</a>
+          <a class="page-btn" href="#">›</a>
+        </nav>
+
+        <!-- Benefits block (optional, keeps page cohesive) -->
+        <div class="benefits">
+          <div class="benefit"><div><b>Free Shipping</b><small>Above Rs 3500</small></div></div>
+          <div class="benefit"><div><b>Secure Packaging</b><small>Damage‑free delivery</small></div></div>
+          <div class="benefit"><div><b>Online Support 24/7</b><small>We’re here to help</small></div></div>
+          <div class="benefit"><div><b>Cash On Delivery</b><small>Pay at your doorstep</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div>
+        <h3 class="logo">CHEEZAN.PK</h3>
+        <p class="subtle">Contact: cheezenn.pk.info<br>WhatsApp: 03237896659</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p class="subtle">
+          <a href="#">Home</a><br>
+          <a href="#">About</a><br>
+          <a href="#">Shop</a><br>
+          <a href="#">Contact</a>
+        </p>
+      </div>
+      <div>
+        <h4>Policies</h4>
+        <p class="subtle">
+          <a href="#">Privacy Policy</a><br>
+          <a href="#">Terms & Conditions</a><br>
+          <a href="#">Return & Refund</a>
+        </p>
+      </div>
+    </div>
+    <div class="container copy">Redesign by Hammad</div>
+    <div class="container copy">© 2025 CHEEZEN.PK — All rights reserved.</div>
+  </footer>
+
+  <!-- Floating Actions -->
+  <a class="backtotop" href="#top" aria-label="Back to top">↑</a>
+  <a class="fab-whatsapp" href="https://wa.me/923237896659" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.01 0C5.4 0 .04 5.36.04 11.98c0 2.11.55 4.18 1.59 6.02L0 24l6.16-1.6a11.96 11.96 0 0 0 5.84 1.49h.01c6.62 0 11.98-5.36 11.98-11.98a11.9 11.9 0 0 0-3.47-8.43ZM12 21.52h-.01a9.52 9.52 0 0 1-4.85-1.32l-.35-.2-3.65.95.98-3.56-.22-.37a9.52 9.52 0 1 1 8.3 4.5Zm5.49-7.1c-.3-.15-1.77-.87-2.04-.97-.27-.1-.46-.15-.66.15-.2.3-.76.97-.93 1.17-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.74-1.66-2.03-.17-.3-.02-.46.13-.61.13-.13.3-.34.45-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.03-.52-.08-.15-.66-1.6-.9-2.2-.24-.58-.49-.5-.66-.51h-.57c-.2 0-.52.08-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.86 1.22 3.06.15.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+</body>
+</html>
