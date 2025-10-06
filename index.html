@@ -38,6 +38,27 @@
       --t: 240ms cubic-bezier(.2,.7,.3,1);
     }
 
+    /* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;               /* scroll bar ki width */
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0e17;       /* track ka background (dark) */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1e90ff, #00bfff); /* thumb ka color (blue gradient) */
+  border-radius: 10px;
+  box-shadow: 0 0 10px #1e90ff; /* glow effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00bfff, #1e90ff);
+}
+
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
